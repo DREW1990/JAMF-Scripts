@@ -1,8 +1,6 @@
 #!/bin/bash
 
 # This script will auto hide the dock and set it to delay to 0 ms
-# Created by: 	Andrew Jocson
-# Date:		5/05/2017
 
 # Grab current logged in user
 USER=`/bin/ls -la /dev/console | /usr/bin/cut -d " " -f 4`
