@@ -31,32 +31,32 @@ if [[ -d /Applications/$APP/ ]]; then
 			echo "$APP still exists...exit script"
 			exit 2
 		fi
-fi 
+fi
 
 
 # If OS X Version is 10.10.x or greater, install $APP.app
-if [[ "$osxVersion" == "11" || "$osxVersion" == "10" ]]; then
+if [[ "$osxVersion" == "13" || "$osxVersion" == "12" || "$osxVersion" == "11" || "$osxVersion" == "10" ]]; then
 
 	echo "Running $APP Install"
-	
+
 	# Create tmp directory
 	mkdir /tmp/some_tmp_dir
-	
+
 	# Change directory to some_tmp_dir
 	cd /tmp/some_tmp_dir
-	
+
 	# Download .zip file from the link and name it $APP.zip
 	curl -sS enterLinkToFileHere > $APP.zip
-	
+
 	# Quietly unzip $APP.zip
 	unzip -q $APP.zip
-	
+
 	# move $APP.app to the /Applications folder
 	mv /tmp/some_tmp_dir/$APP.app /Applications/
-	
+
 	# Grab the current logged in user
 	user=`ls -la /dev/console | cut -d " " -f 4`
-	
+
 	# Change ownership to logged in user
 	chown -R $user:admin /Applications/$APP.app
 	chmod 755 /Applications/$APP.app

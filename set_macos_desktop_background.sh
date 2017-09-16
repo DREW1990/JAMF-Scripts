@@ -11,7 +11,7 @@ desktop_bg = '/path/to/desktop/background'
 # If the logged in user is not admin, change the background.
 if [ $logged_in_user == "admin" ]; then
 
-  echo "Run this policy on user other than BuzzFeed Administrator."
+  echo "Run this policy on user other than Administrator."
 
   exit 1
 
