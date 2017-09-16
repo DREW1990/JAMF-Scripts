@@ -5,10 +5,8 @@
 # If the battery is less than 20%, send an email to the helpdesk team.
 
 # Set helpdesk email
-helpdesk_email = 'helpdesk@help.com'
+destination_email = 'email@email.com'
 
-# Sender's email
-sender_email = 'my@email.com'
 # Grab the computer's name
 computer_name=`scutil --get ComputerName`
 
@@ -31,9 +29,9 @@ trackpad_battery_level=$( awk -F: ' /Magic Trackpad 2/{x = NR + 5} NR == x {prin
 
 # ======== Check Magic Keyboard ========
 # If keyboard battery level is less than or equal to 20% or connection status is "No", submit an email to Help Desk.
-if [ $keyboard_connection_status = "Yes" ] && [ $keyboard_battery_level -le 95 ]; then
+if [ $keyboard_connection_status = "Yes" ] && [ $keyboard_battery_level -le 20 ]; then
   # Create temp file that will be used to send an email
-  echo "Keyboard battery is low. Sending email to Help Desk."
+  echo "Keyboard battery is low. Sending email notification."
 
   echo "Subject: Magic Keyboard battery low on $computer_name" > /tmp/keyboard_status.log
   echo  "Please stop by the conference room and take a look." >> /tmp/keyboard_status.log
@@ -41,7 +39,7 @@ if [ $keyboard_connection_status = "Yes" ] && [ $keyboard_battery_level -le 95 ]
   echo  "Battery level: $keyboard_battery_level%." >> /tmp/keyboard_status.log
 
   # Send email to helpdesk
-  /usr/sbin/sendmail -F 'JSS Administrator' $helpdesk_email < /tmp/keyboard_status.log
+  /usr/sbin/sendmail -F 'Bluetooth Notification' $destination_email < /tmp/keyboard_status.log
 
   # Wait 3 seconds
   sleep 3
@@ -58,9 +56,9 @@ fi
 
 # ======== Check Trackpad Keyboard =========
 # If trackpad battery level is less than or equal to 20% or connection status is "No", submit an email to Help Desk.
-if [ $trackpad_connection_status = "Yes" ] && [ $trackpad_battery_level -le 95 ]; then
+if [ $trackpad_connection_status = "Yes" ] && [ $trackpad_battery_level -le 20 ]; then
   # Create temp file that will be used to send an email
-  echo "Trackpad battery is low. Sending email to Help Desk."
+  echo "Trackpad battery is low. Sending email notification."
 
   echo "Subject: Magic Trackpad battery low on $computer_name" > /tmp/trackpad_status.log
   echo  "Please stop by the conference room and take a look." >> /tmp/trackpad_status.log
@@ -68,7 +66,7 @@ if [ $trackpad_connection_status = "Yes" ] && [ $trackpad_battery_level -le 95 ]
   echo  "Battery level: $trackpad_battery_level%." >> /tmp/trackpad_status.log
 
   # Send email to helpdesk
-  /usr/sbin/sendmail -F 'JSS Administrator' $helpdesk_email < /tmp/trackpad_status.log
+  /usr/sbin/sendmail -F 'Bluetooth Notification' $destination_email < /tmp/trackpad_status.log
 
   # Wait 3 seconds
   sleep 3
